@@ -148,16 +148,21 @@ export default function ReleasesPage() {
               style={{
                 display: "flex",
                 flexDirection: "row",
-                gap: "56px",
+                gap: "40px",
                 alignItems: "flex-start",
                 marginBottom: idx < RELEASES.length - 1 ? "80px" : 0,
-                flexWrap: "wrap-reverse",
+                flexWrap: "wrap",
                 paddingBottom: idx < RELEASES.length - 1 ? "80px" : 0,
                 borderBottom: idx < RELEASES.length - 1 ? `1px solid ${C.border}` : "none",
               }}
             >
-              {/* Left: info + platform buttons */}
-              <div style={{ flex: "1 1 320px", display: "flex", flexDirection: "column", gap: "16px", alignSelf: "flex-start" }}>
+              {/* Left: album art */}
+              <div style={{ flex: "0 0 280px", maxWidth: "320px", alignSelf: "flex-start" }}>
+                <AlbumPlaceholder releaseId={release.id} title={release.title} />
+              </div>
+
+              {/* Right: info + platform buttons */}
+              <div style={{ flex: "1 1 260px", display: "flex", flexDirection: "column", gap: "12px", alignSelf: "flex-start" }}>
                 <p
                   style={{
                     fontSize: "0.7rem",
@@ -217,10 +222,7 @@ export default function ReleasesPage() {
                 </div>
               </div>
 
-              {/* Right: album art placeholder */}
-              <div style={{ flex: "1 1 240px", maxWidth: "380px", alignSelf: "flex-start" }}>
-                <AlbumPlaceholder releaseId={release.id} title={release.title} />
-              </div>
+
             </div>
           ))}
         </div>

@@ -7,8 +7,8 @@ import Link from "next/link";
 export const C = {
   bg: "#0F1D26",       // near-black dark slate blue — base
   bgAlt: "#1A2E3A",   // deep steel blue — alternating sections
-  bgDeep: "#091318",  // deepest — for high contrast sections
-  bgWarm: "#1C2B1A",  // dark forest green — warm contrast section
+  bgDeep: "#0D1F2D",  // deep navy — featured sections
+  bgWarm: "#162535",  // mid navy blue — contrast section (replaces green)
   mid: "#476E84",     // mid tone teal
   light: "#6E8E98",   // muted teal blue — secondary text
   snow: "#A8C0C8",    // lightest swatch — highlights
@@ -16,7 +16,7 @@ export const C = {
   accent: "#C8A45A",  // warm amber — CTA buttons
   accentHover: "#E0B96A", // lighter amber hover
   border: "#2A4A5A",  // dark blue border
-  borderWarm: "#2A3D28", // dark green border for warm sections
+  borderWarm: "#1E3A50", // mid navy border for warm sections
 };
 
 export const SOCIALS = {

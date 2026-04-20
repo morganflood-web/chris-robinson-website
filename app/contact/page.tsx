@@ -183,21 +183,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div
-              style={{
-                marginTop: "40px",
-                paddingTop: "32px",
-                borderTop: `1px solid ${C.border}`,
-                color: C.light,
-                fontSize: "0.85rem",
-                lineHeight: 1.7,
-              }}
-            >
-              <p>
-                For all booking inquiries, media requests, and corporate entertainment,
-                please reach out to Grand Wave Entertainment directly.
-              </p>
-            </div>
+
           </div>
         </div>
       </main>
