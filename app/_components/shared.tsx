@@ -5,18 +5,19 @@ import Link from "next/link";
 // ─── DESIGN TOKENS ───────────────────────────────────────────────────────────
 
 export const C = {
-  bg: "#0F1D26",       // near-black dark slate blue — base
-  bgAlt: "#1A2E3A",   // deep steel blue — alternating sections
-  bgDeep: "#0D1F2D",  // deep navy — featured sections
-  bgWarm: "#162535",  // mid navy blue — contrast section (replaces green)
-  mid: "#476E84",     // mid tone teal
-  light: "#6E8E98",   // muted teal blue — secondary text
-  snow: "#A8C0C8",    // lightest swatch — highlights
-  text: "#E8F2F6",    // near-white text
-  accent: "#C8A45A",  // warm amber — CTA buttons
-  accentHover: "#E0B96A", // lighter amber hover
-  border: "#2A4A5A",  // dark blue border
-  borderWarm: "#1E3A50", // mid navy border for warm sections
+  bg: "#1C3244",       // mid Arctic Camo blue — base
+  bgAlt: "#2A4A62",   // lighter Arctic Camo — alternating sections
+  bgDeep: "#0F1D26",  // deepest navy — high contrast
+  bgWarm: "#3A6278",  // light Arctic Camo — accent sections
+  bgLight: "#7AAEC8", // lightest Arctic Camo — highlight sections
+  mid: "#4E84A0",     // mid tone
+  light: "#8AB4C8",   // light secondary text
+  snow: "#C8DFE8",    // near-white highlight
+  text: "#EEF5F8",    // near-white text
+  accent: "#C8A45A",  // warm amber — CTA
+  accentHover: "#E0B96A",
+  border: "#2A4A62",
+  borderWarm: "#3A6278",
 };
 
 export const SOCIALS = {

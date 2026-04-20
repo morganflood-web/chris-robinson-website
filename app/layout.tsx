@@ -47,7 +47,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.variable} ${bebasNeue.variable} ${inter.className}`}
-        style={{ backgroundColor: "#1B2A1E", color: "#F0F4EF", margin: 0 }}
+        style={{ backgroundColor: "#1C3244", color: "#EEF5F8", margin: 0 }}
       >
         {children}
       </body>
