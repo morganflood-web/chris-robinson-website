@@ -6,10 +6,10 @@ import { Header, Footer, EmailSignup, C } from "./_components/shared";
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const UPCOMING_SHOWS = [
-  { date: "Thu, May 1", venue: "Brewery Bay", city: "Orillia, ON", ticketUrl: "https://www.eventbrite.ca/e/sin-bin-comedy-show-with-chris-robinson-at-brewery-bay-tickets-1984623026898", soldOut: false },
-  { date: "Thu, May 14", venue: "IDK Social Bar and Cafe", city: "Toronto, ON", ticketUrl: "https://www.eventbrite.ca/e/block-party-vol-11-thursday-may-14th-tickets-1985201000633", soldOut: false },
-  { date: "Thu, May 22", venue: "River Run Centre", city: "Guelph, ON", ticketUrl: "https://riverrun.ca/whats-on/roll-on-the-floor-ft-keith-pedro-chris-robinson/", soldOut: false },
-  { date: "Sat, Jun 13", venue: "East Street Cider Co. Taproom", city: "Goderich, ON", ticketUrl: "https://www.eaststreetcider.com/events-1/comedy-show-the-taproom-13", soldOut: false },
+  { date: "Thu, May 1, 2026", venue: "Brewery Bay", city: "Orillia, ON", note: "Sin Bin Comedy Show", ticketUrl: "https://www.eventbrite.ca/e/sin-bin-comedy-show-with-chris-robinson-at-brewery-bay-tickets-1984623026898", soldOut: false },
+  { date: "Thu, May 14, 2026", venue: "IDK Social Bar and Cafe", city: "Toronto, ON", note: "Block Party Vol. 11", ticketUrl: "https://www.eventbrite.ca/e/block-party-vol-11-thursday-may-14th-tickets-1985201000633", soldOut: false },
+  { date: "Thu, May 22, 2026", venue: "River Run Centre", city: "Guelph, ON", note: "Roll on the Floor ft. Keith Pedro & Chris Robinson", ticketUrl: "https://riverrun.ca/whats-on/roll-on-the-floor-ft-keith-pedro-chris-robinson/", soldOut: false },
+  { date: "Sat, Jun 13, 2026", venue: "East Street Cider Co. Taproom", city: "Goderich, ON", note: "Comedy Show at The Taproom", ticketUrl: "https://www.eaststreetcider.com/events-1/comedy-show-the-taproom-13", soldOut: false },
 ];
 
 const UNRULY_PLATFORMS = [
@@ -88,8 +88,11 @@ function UpcomingShowsSection() {
       </h2>
       <div style={{ borderTop: `1px solid ${C.border}`, maxWidth: "900px", margin: "0 auto" }}>
         {UPCOMING_SHOWS.map((show, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 0", borderBottom: `1px solid ${C.border}` }}>
-            <span style={{ flex: 2, fontSize: "0.9rem", color: C.text }}>{show.date} — {show.venue}</span>
+          <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 0", borderBottom: `1px solid ${C.border}`, gap: "16px" }}>
+            <div style={{ flex: 2 }}>
+              <span style={{ fontSize: "0.9rem", color: C.text, display: "block" }}>{show.date} — {show.venue}</span>
+              {show.note && <span style={{ fontSize: "0.78rem", color: C.light, display: "block", marginTop: "2px" }}>{show.note}</span>}
+            </div>
             <span style={{ flex: 1, textAlign: "center", fontSize: "0.9rem", color: C.light }}>{show.city}</span>
             <span style={{ flex: 0, textAlign: "right" }}>
               {show.soldOut ? (

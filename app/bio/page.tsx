@@ -87,12 +87,8 @@ export default function BioPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {[
                   "Sirius XM Top Comic Winner, 2016 — $25,000 Grand Prize",
-                  "Just For Laughs Comedy Festival, Montreal — Multiple Appearances",
-                  "Comedy Special: Panning for Gold — AppleTV",
+                  "Comedy Special: Panning for Gold — CraveTV/AppleTV",
                   "Comedy Special: Unruly — YouTube",
-                  "Actor: Workin' Moms, Tallboyz, The Amazing Gayle Pile, Kids in the Hall",
-                  "Lead: Pillow Talk — Crave",
-                  "Recurring Role: One More Time — CBC",
                 ].map((item) => (
                   <p
                     key={item}
