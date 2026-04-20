@@ -81,7 +81,7 @@ function FeaturedReleaseSection() {
 
 function UpcomingShowsSection() {
   return (
-    <section style={{ backgroundColor: C.bgAlt, padding: "80px 32px", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
+    <section style={{ backgroundColor: C.bg, padding: "80px 32px", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
       <h2 style={{ textAlign: "center", fontFamily: "var(--font-bebas), Impact, sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", letterSpacing: "0.2em", textTransform: "uppercase", color: C.text, marginBottom: "48px" }}>
         Upcoming Shows
       </h2>
