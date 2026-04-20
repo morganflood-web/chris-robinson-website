@@ -74,7 +74,7 @@ function FeaturedReleaseSection() {
           <img
             src="/images/unruly-hero.jpg"
             alt="Unruly"
-            style={{ width: "100%", maxWidth: "560px", borderRadius: "12px", display: "block" }}
+            style={{ width: "100%", maxWidth: "700px", borderRadius: "12px", display: "block" }}
           />
         </div>
       </div>
