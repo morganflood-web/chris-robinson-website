@@ -24,18 +24,18 @@ const UNRULY_PLATFORMS = [
 
 function FeaturedReleaseSection() {
   return (
-    <section style={{ backgroundColor: C.bgAlt, padding: "48px 32px 64px" }}>
+    <section style={{ backgroundColor: C.bgAlt, padding: "32px 48px 64px" }}>
       {/* "New Comedy Special & Album — Out Now" banner */}
-      <p style={{ textAlign: "center", fontSize: "0.7rem", letterSpacing: "0.3em", textTransform: "uppercase", color: C.accent, marginBottom: "40px" }}>
+      <p style={{ textAlign: "center", fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: C.accent, marginBottom: "24px" }}>
         New Comedy Special &amp; Album — Out Now
       </p>
-      <div className="featured-release" style={{ display: "flex", flexWrap: "wrap", gap: "48px", maxWidth: "1000px", margin: "0 auto", alignItems: "flex-start" }}>
+      <div className="featured-release" style={{ display: "flex", flexWrap: "wrap", gap: "40px", maxWidth: "1100px", margin: "0 auto", alignItems: "flex-start" }}>
         {/* Left: title + buttons */}
-        <div style={{ flex: "1 1 300px" }}>
-          <h2 style={{ fontFamily: "var(--font-bebas), Impact, sans-serif", fontSize: "clamp(3.5rem, 8vw, 6rem)", letterSpacing: "0.03em", color: C.text, margin: "0 0 8px", lineHeight: 1 }}>
+        <div style={{ flex: "1 1 340px" }}>
+          <h2 style={{ fontFamily: "var(--font-bebas), Impact, sans-serif", fontSize: "clamp(5rem, 10vw, 8rem)", letterSpacing: "0.02em", color: C.text, margin: "0 0 4px", lineHeight: 0.95 }}>
             UNRULY
           </h2>
-          <p style={{ color: C.light, fontSize: "0.85rem", marginBottom: "28px" }}>
+          <p style={{ color: C.light, fontSize: "0.85rem", marginBottom: "24px" }}>
             2025 · Comedy Special &amp; Album
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -55,7 +55,6 @@ function FeaturedReleaseSection() {
                   textDecoration: "none",
                   textAlign: "center",
                   width: "100%",
-                  maxWidth: "400px",
                 }}
               >
                 {btn.label}
@@ -64,11 +63,11 @@ function FeaturedReleaseSection() {
           </div>
         </div>
         {/* Right: image */}
-        <div style={{ flex: "1 1 300px", maxWidth: "460px" }}>
+        <div style={{ flex: "1 1 340px" }}>
           <img
             src="/images/unruly-hero.jpg"
             alt="Unruly"
-            style={{ width: "100%", height: "auto", borderRadius: "12px", display: "block" }}
+            style={{ width: "100%", height: "auto", borderRadius: "10px", display: "block" }}
           />
         </div>
       </div>
@@ -81,7 +80,7 @@ function FeaturedReleaseSection() {
 function UpcomingShowsSection() {
   return (
     <section style={{ backgroundColor: C.bg, padding: "80px 32px", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
-      <h2 style={{ textAlign: "center", fontFamily: "var(--font-bebas), Impact, sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", letterSpacing: "0.2em", textTransform: "uppercase", color: C.text, marginBottom: "48px" }}>
+      <h2 style={{ textAlign: "center", fontFamily: "var(--font-bebas), Impact, sans-serif", fontSize: "clamp(3rem, 6vw, 5rem)", letterSpacing: "0.2em", textTransform: "uppercase", color: C.text, marginBottom: "48px" }}>
         Upcoming Shows
       </h2>
       <div style={{ borderTop: `1px solid ${C.border}`, maxWidth: "900px", margin: "0 auto" }}>
