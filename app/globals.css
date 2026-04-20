@@ -29,6 +29,13 @@ header nav {
   display: flex !important;
 }
 
+/* Desktop only: constrain image column max width */
+@media (min-width: 769px) {
+  .featured-release .image-col {
+    flex: 1.3 1 420px !important;
+  }
+}
+
 /* Mobile header: stack vertically like Rita's */
 @media (max-width: 768px) {
   header {

@@ -71,11 +71,11 @@ function FeaturedReleaseSection() {
           </div>
         </div>
         {/* RIGHT: image */}
-        <div style={{ flex: "1 1 320px", display: "flex", justifyContent: "center" }}>
+        <div className="image-col" style={{ flex: "1.3 1 420px", display: "flex", justifyContent: "center" }}>
           <img
             src="/images/unruly-hero.jpg"
             alt="Unruly"
-            style={{ width: "100%", maxWidth: "910px", borderRadius: "12px", display: "block" }}
+            style={{ width: "100%", borderRadius: "12px", display: "block" }}
           />
         </div>
       </div>
