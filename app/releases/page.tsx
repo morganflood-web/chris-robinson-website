@@ -105,12 +105,13 @@ export default function ReleasesPage() {
   return (
     <>
       <Header activePath="/releases" />
-      <main style={{ backgroundColor: C.bg, minHeight: "80vh" }}>
+      <main style={{ backgroundColor: C.bgDeep, minHeight: "80vh" }}>
         {/* Page header */}
         <div
           style={{
             padding: "60px 32px 40px",
             textAlign: "center",
+            backgroundColor: C.bgAlt,
             borderBottom: `1px solid ${C.border}`,
           }}
         >
@@ -156,7 +157,7 @@ export default function ReleasesPage() {
               }}
             >
               {/* Left: info + platform buttons */}
-              <div style={{ flex: "1 1 320px", display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div style={{ flex: "1 1 320px", display: "flex", flexDirection: "column", gap: "16px", alignSelf: "flex-start" }}>
                 <p
                   style={{
                     fontSize: "0.7rem",
@@ -192,12 +193,13 @@ export default function ReleasesPage() {
                         border: `1px solid ${C.accent}`,
                         color: C.text,
                         textAlign: "center",
-                        padding: "10px 24px",
+                        padding: "10px 0",
                         borderRadius: "999px",
                         fontSize: "0.85rem",
                         textDecoration: "none",
                         letterSpacing: "0.05em",
-                        maxWidth: "320px",
+                        width: "260px",
+                        display: "block",
                         transition: "background 0.2s, color 0.2s",
                       }}
                       onMouseOver={(e) => {
@@ -216,7 +218,7 @@ export default function ReleasesPage() {
               </div>
 
               {/* Right: album art placeholder */}
-              <div style={{ flex: "1 1 240px", maxWidth: "380px" }}>
+              <div style={{ flex: "1 1 240px", maxWidth: "380px", alignSelf: "flex-start" }}>
                 <AlbumPlaceholder releaseId={release.id} title={release.title} />
               </div>
             </div>

@@ -24,9 +24,12 @@ const UNRULY_PLATFORMS = [
 
 function FeaturedReleaseSection() {
   return (
-    <section style={{ backgroundColor: C.bg, padding: "80px 32px" }}>
-      <p style={{ textAlign: "center", fontSize: "0.7rem", letterSpacing: "0.3em", textTransform: "uppercase", color: C.accent, marginBottom: "48px" }}>
-        New Release
+    <section style={{ backgroundColor: C.bgDeep, padding: "80px 32px" }}>
+      <p style={{ textAlign: "center", fontSize: "0.7rem", letterSpacing: "0.3em", textTransform: "uppercase", color: C.accent, marginBottom: "4px" }}>
+        New Comedy Special &amp; Album
+      </p>
+      <p style={{ textAlign: "center", fontSize: "0.85rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.snow, marginBottom: "48px", fontWeight: 600 }}>
+        Out Now
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "48px", maxWidth: "1000px", margin: "0 auto", alignItems: "center" }}>
         {/* Image — left */}
@@ -78,7 +81,7 @@ function FeaturedReleaseSection() {
 
 function UpcomingShowsSection() {
   return (
-    <section style={{ backgroundColor: C.bgAlt, padding: "80px 32px" }}>
+    <section style={{ backgroundColor: C.bgAlt, padding: "80px 32px", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
       <h2 style={{ textAlign: "center", fontFamily: "var(--font-bebas), Impact, sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", letterSpacing: "0.2em", textTransform: "uppercase", color: C.text, marginBottom: "48px" }}>
         Upcoming Shows
       </h2>
@@ -112,7 +115,7 @@ function UpcomingShowsSection() {
 
 function BookingSection() {
   return (
-    <section style={{ backgroundColor: C.bg, padding: "80px 32px" }}>
+    <section style={{ backgroundColor: C.bgWarm, padding: "80px 32px" }}>
       <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center" }}>
         <h2 style={{ fontFamily: "var(--font-bebas), Impact, sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", letterSpacing: "0.2em", textTransform: "uppercase", color: C.text, marginBottom: "12px" }}>
           Booking
