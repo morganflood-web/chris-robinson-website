@@ -35,7 +35,7 @@ function FeaturedReleaseSection() {
         {/* Image — left */}
         <div style={{ flex: "1 1 280px", maxWidth: "400px" }}>
           <img
-            src="/images/unruly-album-art.jpg"
+            src="/images/unruly-hero.jpg"
             alt="Unruly"
             style={{ width: "100%", height: "auto", borderRadius: "12px", display: "block" }}
           />
