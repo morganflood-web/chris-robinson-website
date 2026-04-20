@@ -63,11 +63,11 @@ function FeaturedReleaseSection() {
           </div>
         </div>
         {/* Right: image */}
-        <div style={{ flex: "1 1 340px" }}>
+        <div style={{ flex: "1 1 340px", alignSelf: "stretch", display: "flex" }}>
           <img
             src="/images/unruly-hero.jpg"
             alt="Unruly"
-            style={{ width: "100%", height: "auto", borderRadius: "10px", display: "block" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "10px", display: "block", minHeight: "320px" }}
           />
         </div>
       </div>

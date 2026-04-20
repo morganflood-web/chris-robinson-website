@@ -53,12 +53,17 @@ header nav {
     order: 1;
     justify-content: center;
   }
-  /* Mobile: featured section — no gap between image and title */
+  /* Mobile: featured section — image on top, no gap */
   .featured-release {
     flex-direction: column !important;
-    gap: 24px !important;
+    gap: 16px !important;
   }
   .featured-release > div:last-child {
     order: -1;
+    min-height: unset !important;
+  }
+  .featured-release img {
+    min-height: unset !important;
+    height: auto !important;
   }
 }
