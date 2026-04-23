@@ -28,9 +28,9 @@ export default async function AdminLayout({
 const styles: Record<string, React.CSSProperties> = {
   shell: {
     minHeight: '100vh',
-    backgroundColor: '#1B2A1E',
+    backgroundColor: '#1C3244',
     fontFamily: "system-ui, sans-serif",
-    color: '#F0F4EF',
+    color: '#EEF5F8',
   },
   main: {
     maxWidth: '900px',

@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
 const styles: Record<string, React.CSSProperties> = {
   page: {
     minHeight: '100vh',
-    backgroundColor: '#1B2A1E',
+    backgroundColor: '#1C3244',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -77,8 +77,8 @@ const styles: Record<string, React.CSSProperties> = {
     padding: '1rem',
   },
   card: {
-    backgroundColor: '#243326',
-    border: '1px solid #3D4F3C',
+    backgroundColor: '#2A4A62',
+    border: '1px solid #2A4A62',
     borderRadius: '8px',
     padding: '2.5rem 2rem',
     width: '100%',
@@ -94,7 +94,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily: "var(--font-bebas), Impact, sans-serif",
   },
   sub: {
-    color: '#7A8C74',
+    color: '#8AB4C8',
     fontSize: '0.9rem',
     margin: '0 0 2rem',
     textTransform: 'uppercase',
@@ -107,7 +107,7 @@ const styles: Record<string, React.CSSProperties> = {
     textAlign: 'left',
   },
   label: {
-    color: '#F0F4EF',
+    color: '#EEF5F8',
     fontSize: '0.85rem',
     fontWeight: 600,
     letterSpacing: '0.05em',
@@ -116,10 +116,10 @@ const styles: Record<string, React.CSSProperties> = {
   input: {
     width: '100%',
     padding: '0.65rem 0.75rem',
-    backgroundColor: '#1B2A1E',
-    border: '1px solid #3D4F3C',
+    backgroundColor: '#0F1D26',
+    border: '1px solid #2A4A62',
     borderRadius: '4px',
-    color: '#F0F4EF',
+    color: '#EEF5F8',
     fontSize: '1rem',
     boxSizing: 'border-box',
     outline: 'none',
@@ -137,7 +137,7 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: '0.5rem',
     padding: '0.75rem',
     backgroundColor: '#C8A45A',
-    color: '#1B2A1E',
+    color: '#0F1D26',
     border: 'none',
     borderRadius: '4px',
     fontSize: '1rem',

@@ -1,14 +1,22 @@
 import type { CSSProperties } from 'react';
 
-// Shared admin UI styles — Arctic Camo palette matching the Chris Robinson site
+// Shared admin UI styles — matching the Chris Robinson site blue palette
+// Design tokens from app/_components/shared.tsx
+const bg     = '#1C3244'; // base dark blue
+const bgAlt  = '#2A4A62'; // lighter blue (card backgrounds)
+const bgDeep = '#0F1D26'; // deepest navy
+const border = '#2A4A62';
+const light  = '#8AB4C8'; // secondary text
+const text   = '#EEF5F8'; // near-white
+const accent = '#C8A45A'; // amber CTA
 
 export const inputStyle: CSSProperties = {
   width: '100%',
   padding: '0.6rem 0.75rem',
-  backgroundColor: '#1B2A1E',
-  border: '1px solid #3D4F3C',
+  backgroundColor: bgDeep,
+  border: `1px solid ${border}`,
   borderRadius: '4px',
-  color: '#F0F4EF',
+  color: text,
   fontSize: '0.9rem',
   boxSizing: 'border-box',
   outline: 'none',
@@ -21,8 +29,8 @@ export const selectStyle: CSSProperties = {
 
 export const btnStyle: CSSProperties = {
   padding: '0.55rem 1.1rem',
-  backgroundColor: '#C8A45A',
-  color: '#1B2A1E',
+  backgroundColor: accent,
+  color: bgDeep,
   border: 'none',
   borderRadius: '4px',
   fontSize: '0.875rem',
@@ -35,44 +43,44 @@ export const btnStyle: CSSProperties = {
 export const secondaryBtnStyle: CSSProperties = {
   ...btnStyle,
   backgroundColor: 'transparent',
-  border: '1px solid #3D4F3C',
-  color: '#7A8C74',
+  border: `1px solid ${border}`,
+  color: light,
 };
 
 export const dangerBtnStyle: CSSProperties = {
   ...btnStyle,
-  backgroundColor: '#4a1f1f',
+  backgroundColor: '#3a1a1a',
   color: '#f5c0c0',
 };
 
 export const s: Record<string, CSSProperties> = {
   pageTitle: {
-    color: '#C8A45A',
+    color: accent,
     fontSize: '1.8rem',
     fontWeight: 700,
     margin: '0 0 1.5rem',
     letterSpacing: '0.02em',
   },
   sectionTitle: {
-    color: '#F0F4EF',
+    color: text,
     fontSize: '1rem',
     fontWeight: 700,
     margin: '0 0 1rem',
     textTransform: 'uppercase',
     letterSpacing: '0.08em',
-    borderBottom: '1px solid #3D4F3C',
+    borderBottom: `1px solid ${border}`,
     paddingBottom: '0.5rem',
   },
   card: {
-    backgroundColor: '#243326',
-    border: '1px solid #3D4F3C',
+    backgroundColor: bgAlt,
+    border: `1px solid ${border}`,
     borderRadius: '6px',
     padding: '1.25rem',
     marginBottom: '1.5rem',
   },
   editCard: {
-    backgroundColor: '#1B2A1E',
-    border: '1px solid #C8A45A',
+    backgroundColor: bg,
+    border: `1px solid ${accent}`,
     borderRadius: '6px',
     padding: '1.25rem',
   },
@@ -89,7 +97,7 @@ export const s: Record<string, CSSProperties> = {
   },
   label: {
     display: 'block',
-    color: '#7A8C74',
+    color: light,
     fontSize: '0.75rem',
     fontWeight: 700,
     letterSpacing: '0.07em',
@@ -97,7 +105,7 @@ export const s: Record<string, CSSProperties> = {
     marginBottom: '0.3rem',
   },
   checkLabel: {
-    color: '#F0F4EF',
+    color: text,
     fontSize: '0.875rem',
     cursor: 'pointer',
   },
@@ -108,34 +116,34 @@ export const s: Record<string, CSSProperties> = {
   },
   th: {
     textAlign: 'left' as const,
-    color: '#7A8C74',
+    color: light,
     fontSize: '0.75rem',
     fontWeight: 700,
     letterSpacing: '0.07em',
     textTransform: 'uppercase',
     padding: '0.5rem 0.75rem',
-    borderBottom: '1px solid #3D4F3C',
+    borderBottom: `1px solid ${border}`,
     whiteSpace: 'nowrap' as const,
   },
   tr: {
-    borderBottom: '1px solid #2A3A2C',
+    borderBottom: `1px solid ${border}`,
   },
   editRow: {
-    borderBottom: '1px solid #C8A45A',
-    backgroundColor: '#1B2A1E',
+    borderBottom: `1px solid ${accent}`,
+    backgroundColor: bg,
   },
   td: {
     padding: '0.6rem 0.75rem',
-    color: '#F0F4EF',
+    color: text,
     verticalAlign: 'middle' as const,
   },
   empty: {
-    color: '#7A8C74',
+    color: light,
     fontStyle: 'italic',
     margin: 0,
   },
   link: {
-    color: '#C8A45A',
+    color: accent,
     textDecoration: 'none',
     fontSize: '0.8rem',
     wordBreak: 'break-all' as const,
@@ -146,8 +154,8 @@ export const s: Record<string, CSSProperties> = {
     alignItems: 'flex-start',
     gap: '1rem',
     padding: '0.75rem',
-    backgroundColor: '#1B2A1E',
-    border: '1px solid #2A3A2C',
+    backgroundColor: bgDeep,
+    border: `1px solid ${border}`,
     borderRadius: '4px',
   },
   releaseInfo: {
@@ -157,12 +165,13 @@ export const s: Record<string, CSSProperties> = {
     flex: 1,
   },
   releaseMeta: {
-    color: '#7A8C74',
+    color: light,
     fontSize: '0.8rem',
   },
   hint: {
-    color: '#4A5E49',
+    color: light,
     fontSize: '0.8rem',
     marginTop: '0.5rem',
+    opacity: 0.6,
   },
 };

@@ -45,8 +45,8 @@ export default function AdminNav() {
 
 const styles: Record<string, React.CSSProperties> = {
   nav: {
-    backgroundColor: '#243326',
-    borderBottom: '1px solid #3D4F3C',
+    backgroundColor: '#0F1D26',
+    borderBottom: '1px solid #2A4A62',
     padding: '0.75rem 1rem',
   },
   inner: {
@@ -71,7 +71,7 @@ const styles: Record<string, React.CSSProperties> = {
     flexWrap: 'wrap',
   },
   link: {
-    color: '#7A8C74',
+    color: '#8AB4C8',
     textDecoration: 'none',
     padding: '0.4rem 0.75rem',
     borderRadius: '4px',
@@ -81,16 +81,16 @@ const styles: Record<string, React.CSSProperties> = {
     textTransform: 'uppercase',
   },
   linkActive: {
-    color: '#F0F4EF',
+    color: '#EEF5F8',
     backgroundColor: 'rgba(200,164,90,0.15)',
   },
   logoutBtn: {
     marginLeft: '0.5rem',
     padding: '0.4rem 0.75rem',
     backgroundColor: 'transparent',
-    border: '1px solid #3D4F3C',
+    border: '1px solid #2A4A62',
     borderRadius: '4px',
-    color: '#7A8C74',
+    color: '#8AB4C8',
     fontSize: '0.875rem',
     fontWeight: 600,
     letterSpacing: '0.05em',
