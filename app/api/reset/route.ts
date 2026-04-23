@@ -11,9 +11,9 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET() {
   try {
-    await sql`DELETE FROM shows`;
+    await sql`DROP TABLE IF EXISTS shows`;
     await sql`DROP TABLE IF EXISTS releases`;
-    await sql`DELETE FROM bio`;
+    await sql`DROP TABLE IF EXISTS bio`;
     await setupDb();
     return NextResponse.json({ ok: true, message: 'DB cleared and re-seeded.' });
   } catch (error) {
