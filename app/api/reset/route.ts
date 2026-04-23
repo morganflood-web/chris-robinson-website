@@ -14,6 +14,10 @@ export async function GET() {
     await sql`DELETE FROM shows`;
     await sql`DELETE FROM releases`;
     await sql`DELETE FROM bio`;
+    // Patch schema if columns are missing
+    await sql`ALTER TABLE releases ADD COLUMN IF NOT EXISTS type TEXT NOT NULL DEFAULT ''`;
+    await sql`ALTER TABLE releases ADD COLUMN IF NOT EXISTS youtube_music_url TEXT`;
+    await sql`ALTER TABLE releases ADD COLUMN IF NOT EXISTS amazon_music_url TEXT`;
     await setupDb();
     return NextResponse.json({ ok: true, message: 'DB cleared and re-seeded.' });
   } catch (error) {
