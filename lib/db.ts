@@ -1,6 +1,12 @@
 import { sql } from '@vercel/postgres';
 
 export async function setupDb() {
+  // Add new columns if missing (idempotent)
+  await sql`ALTER TABLE releases ADD COLUMN IF NOT EXISTS cover_image TEXT NOT NULL DEFAULT '/images/release-placeholder.svg'`.catch(() => null);
+  await sql`ALTER TABLE releases ADD COLUMN IF NOT EXISTS platforms JSONB NOT NULL DEFAULT '[]'`.catch(() => null);
+  await sql`ALTER TABLE releases ADD COLUMN IF NOT EXISTS sort_order INTEGER NOT NULL DEFAULT 0`.catch(() => null);
+  await sql`ALTER TABLE releases ADD COLUMN IF NOT EXISTS award_text TEXT`.catch(() => null);
+
   // Shows table
   await sql`
     CREATE TABLE IF NOT EXISTS shows (
@@ -100,11 +106,20 @@ export interface Show {
   soldOut: boolean;
 }
 
+export interface PlatformLink {
+  label: string;
+  url: string;
+}
+
 export interface Release {
   id: string;
   title: string;
   year: string;
-  type: string;
+  type?: string | null;
+  awardText?: string | null;
+  coverImage: string;
+  platforms: PlatformLink[];
+  sortOrder: number;
   youtubeUrl?: string | null;
   spotifyUrl?: string | null;
   appleMusicUrl?: string | null;
