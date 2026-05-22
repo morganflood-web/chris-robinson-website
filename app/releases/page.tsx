@@ -1,71 +1,18 @@
-"use client";
-
 import { Header, Footer, C, EmailSignup } from "../_components/shared";
+import { getReleases } from "@/lib/data";
 
-const RELEASES = [
-  {
-    id: "unruly",
-    title: "UNRULY",
-    year: "2025",
-    type: "Comedy Special & Album",
-    description: "",
-    platforms: [
-      { label: "Watch on YouTube", url: "https://youtu.be/qx9FlFITcvI" },
-      { label: "Spotify", url: "https://open.spotify.com/album/6Mx5Zi9KXjsm1IuyH5Iw8z" },
-      { label: "Apple Music", url: "https://music.apple.com/us/album/unruly/1840954802" },
-      { label: "YouTube Music", url: "https://music.youtube.com/playlist?list=OLAK5uy_lz1HMTSH8vDZD4KWovxv9_1Az_X7mPyDc" },
-      { label: "Amazon Music", url: "https://music.amazon.co.uk/albums/B0FRN7WD8V" },
-    ],
-  },
-  {
-    id: "panning-for-gold",
-    title: "PANNING FOR GOLD",
-    year: "2023",
-    type: "Comedy Special",
-    description: "",
-    platforms: [
-      { label: "Watch on Apple TV", url: "https://tv.apple.com/ca/show/chris-robinson-panning-for-gold/umc.cmc.2nnmodekj9k1buvxldca7l6fo" },
-    ],
-  },
-  {
-    id: "gut-bussa",
-    title: "GUT BUSSA",
-    year: "2020",
-    type: "Debut Comedy Album",
-    description: "",
-    platforms: [
-      { label: "Spotify", url: "https://open.spotify.com/album/4PRmgqAZNmsq5Bb8r7TguT" },
-      { label: "Apple Music", url: "https://music.apple.com/us/album/gut-bussa-vol-1/1510665105" },
-      { label: "Amazon Music", url: "https://music.amazon.ca/albums/B0882JR675" },
-      { label: "YouTube Music", url: "https://music.youtube.com/playlist?list=OLAK5uy_np-FyG18_LpRosOYC-STW_smSgvUaUrRk" },
-    ],
-  },
-];
+export const dynamic = "force-dynamic";
+
 
 // Placeholder color per release (no images yet)
-const PLACEHOLDER_COLORS: Record<string, string> = {
-  "unruly": "#2C3A2B",
-  "panning-for-gold": "#2A3226",
-  "gut-bussa": "#263328",
-};
 
-const PLACEHOLDER_LABELS: Record<string, string> = {
-  "unruly": "UNRULY",
-  "panning-for-gold": "PANNING\nFOR GOLD",
-  "gut-bussa": "GUT BUSSA",
-};
 
-const ALBUM_ART: Record<string, string> = {
-  unruly: "/images/unruly-album-art.jpg",
-  "gut-bussa": "/images/gut-bussa-album-art.jpg",
-  "panning-for-gold": "/images/panning-for-gold-album-art.jpg",
-};
 
-function AlbumPlaceholder({ releaseId, title }: { releaseId: string; title: string }) {
-  if (ALBUM_ART[releaseId]) {
+function AlbumPlaceholder({ releaseId, title, coverImage }: { releaseId: string; title: string; coverImage: string }) {
+  if (coverImage && !coverImage.includes("placeholder")) {
     return (
       <img
-        src={ALBUM_ART[releaseId]}
+        src={coverImage}
         alt={title}
         style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "12px" }}
       />
@@ -76,7 +23,7 @@ function AlbumPlaceholder({ releaseId, title }: { releaseId: string; title: stri
       style={{
         width: "100%",
         aspectRatio: "1 / 1",
-        backgroundColor: PLACEHOLDER_COLORS[releaseId] ?? "#2A3226",
+        backgroundColor: "#2A3226",
         borderRadius: "12px",
         display: "flex",
         alignItems: "center",
@@ -92,16 +39,16 @@ function AlbumPlaceholder({ releaseId, title }: { releaseId: string; title: stri
           color: C.light,
           textAlign: "center",
           padding: "16px",
-          whiteSpace: "pre-line",
         }}
       >
-        {PLACEHOLDER_LABELS[releaseId] ?? title}
+        {title}
       </span>
     </div>
   );
 }
 
-export default function ReleasesPage() {
+export default async function ReleasesPage() {
+  const releases = await getReleases();
   return (
     <>
       <Header activePath="/releases" />
@@ -142,7 +89,7 @@ export default function ReleasesPage() {
 
         {/* Release cards */}
         <div style={{ maxWidth: "900px", margin: "0 auto", padding: "64px 32px" }}>
-          {RELEASES.map((release, idx) => (
+          {releases.map((release, idx) => (
             <div
               key={release.id}
               style={{
@@ -150,15 +97,15 @@ export default function ReleasesPage() {
                 flexDirection: "row",
                 gap: "40px",
                 alignItems: "flex-start",
-                marginBottom: idx < RELEASES.length - 1 ? "80px" : 0,
+                marginBottom: idx < releases.length - 1 ? "80px" : 0,
                 flexWrap: "wrap",
-                paddingBottom: idx < RELEASES.length - 1 ? "80px" : 0,
-                borderBottom: idx < RELEASES.length - 1 ? `1px solid ${C.border}` : "none",
+                paddingBottom: idx < releases.length - 1 ? "80px" : 0,
+                borderBottom: idx < releases.length - 1 ? `1px solid ${C.border}` : "none",
               }}
             >
               {/* Left: album art */}
               <div style={{ flex: "0 0 280px", maxWidth: "320px", alignSelf: "flex-start" }}>
-                <AlbumPlaceholder releaseId={release.id} title={release.title} />
+                <AlbumPlaceholder releaseId={release.id} title={release.title} coverImage={release.coverImage} />
               </div>
 
               {/* Right: info + platform buttons */}
@@ -172,8 +119,11 @@ export default function ReleasesPage() {
                     margin: 0,
                   }}
                 >
-                  {release.type} · {release.year}
+                  {release.year}
                 </p>
+                {release.awardText && (
+                  <p style={{ fontSize: "0.75rem", color: C.light, margin: 0 }}>{release.awardText}</p>
+                )}
                 <h2
                   style={{
                     fontFamily: "var(--font-bebas), Impact, sans-serif",
@@ -205,15 +155,6 @@ export default function ReleasesPage() {
                         letterSpacing: "0.05em",
                         width: "260px",
                         display: "block",
-                        transition: "background 0.2s, color 0.2s",
-                      }}
-                      onMouseOver={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.backgroundColor = C.accent;
-                        (e.currentTarget as HTMLAnchorElement).style.color = "#1B2A1E";
-                      }}
-                      onMouseOut={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-                        (e.currentTarget as HTMLAnchorElement).style.color = C.text;
                       }}
                     >
                       {btn.label}
@@ -221,8 +162,6 @@ export default function ReleasesPage() {
                   ))}
                 </div>
               </div>
-
-
             </div>
           ))}
         </div>
