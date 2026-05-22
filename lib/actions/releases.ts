@@ -6,70 +6,41 @@ import { isAuthenticated } from '../auth';
 
 export async function addRelease(formData: FormData) {
   if (!(await isAuthenticated())) throw new Error('Unauthorized');
-
   const id = Date.now().toString();
   const title = formData.get('title') as string;
   const year = formData.get('year') as string;
-  const type = formData.get('type') as string;
-  const youtubeUrl = (formData.get('youtubeUrl') as string) || null;
-  const spotifyUrl = (formData.get('spotifyUrl') as string) || null;
-  const appleMusicUrl = (formData.get('appleMusicUrl') as string) || null;
-  const appleTvUrl = (formData.get('appleTvUrl') as string) || null;
-  const amazonMusicUrl = (formData.get('amazonMusicUrl') as string) || null;
-  const youtubeMusicUrl = (formData.get('youtubeMusicUrl') as string) || null;
+  const coverImage = (formData.get('coverImage') as string) || '/images/release-placeholder.svg';
+  const sortOrder = parseInt((formData.get('sortOrder') as string) || '0', 10);
+  const platformsJson = formData.get('platforms') as string;
 
   await sql`
-    INSERT INTO releases
-      (id, title, year, type, youtube_url, spotify_url, apple_music_url, apple_tv_url, amazon_music_url, youtube_music_url)
-    VALUES
-      (${id}, ${title}, ${year}, ${type}, ${youtubeUrl}, ${spotifyUrl}, ${appleMusicUrl}, ${appleTvUrl}, ${amazonMusicUrl}, ${youtubeMusicUrl})
+    INSERT INTO releases (id, title, year, cover_image, platforms, sort_order)
+    VALUES (${id}, ${title}, ${year}, ${coverImage}, ${platformsJson}::jsonb, ${sortOrder})
   `;
-
-  revalidatePath('/');
-  revalidatePath('/releases');
-  revalidatePath('/admin/releases');
+  revalidatePath('/'); revalidatePath('/releases'); revalidatePath('/admin/releases');
 }
 
 export async function updateRelease(formData: FormData) {
   if (!(await isAuthenticated())) throw new Error('Unauthorized');
-
   const id = formData.get('id') as string;
   const title = formData.get('title') as string;
   const year = formData.get('year') as string;
-  const type = formData.get('type') as string;
-  const youtubeUrl = (formData.get('youtubeUrl') as string) || null;
-  const spotifyUrl = (formData.get('spotifyUrl') as string) || null;
-  const appleMusicUrl = (formData.get('appleMusicUrl') as string) || null;
-  const appleTvUrl = (formData.get('appleTvUrl') as string) || null;
-  const amazonMusicUrl = (formData.get('amazonMusicUrl') as string) || null;
-  const youtubeMusicUrl = (formData.get('youtubeMusicUrl') as string) || null;
+  const coverImage = (formData.get('coverImage') as string) || '/images/release-placeholder.svg';
+  const sortOrder = parseInt((formData.get('sortOrder') as string) || '0', 10);
+  const platformsJson = formData.get('platforms') as string;
 
   await sql`
     UPDATE releases
-    SET title = ${title},
-        year = ${year},
-        type = ${type},
-        youtube_url = ${youtubeUrl},
-        spotify_url = ${spotifyUrl},
-        apple_music_url = ${appleMusicUrl},
-        apple_tv_url = ${appleTvUrl},
-        amazon_music_url = ${amazonMusicUrl},
-        youtube_music_url = ${youtubeMusicUrl}
-    WHERE id = ${id}
+    SET title=${title}, year=${year}, cover_image=${coverImage},
+        platforms=${platformsJson}::jsonb, sort_order=${sortOrder}, updated_at=NOW()
+    WHERE id=${id}
   `;
-
-  revalidatePath('/');
-  revalidatePath('/releases');
-  revalidatePath('/admin/releases');
+  revalidatePath('/'); revalidatePath('/releases'); revalidatePath('/admin/releases');
 }
 
 export async function deleteRelease(formData: FormData) {
   if (!(await isAuthenticated())) throw new Error('Unauthorized');
-
   const id = formData.get('id') as string;
-  await sql`DELETE FROM releases WHERE id = ${id}`;
-
-  revalidatePath('/');
-  revalidatePath('/releases');
-  revalidatePath('/admin/releases');
+  await sql`DELETE FROM releases WHERE id=${id}`;
+  revalidatePath('/'); revalidatePath('/releases'); revalidatePath('/admin/releases');
 }
