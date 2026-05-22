@@ -125,6 +125,7 @@ export interface Release {
   id: string;
   title: string;
   year: string;
+  awardText?: string | null;
   coverImage: string;
   platforms: PlatformLink[];
   sortOrder: number;
