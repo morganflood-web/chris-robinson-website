@@ -15,10 +15,6 @@ export async function addRelease(formData: FormData) {
   const sortOrder = parseInt((formData.get('sortOrder') as string) || '0', 10);
   const platformsJson = formData.get('platforms') as string || '[]';
   const awardText = (formData.get('awardText') as string) || null;
-  const coverImage = (formData.get('coverImage') as string) || '/images/release-placeholder.svg';
-  const sortOrder = parseInt((formData.get('sortOrder') as string) || '0', 10);
-  const platformsJson = formData.get('platforms') as string || '[]';
-  const awardText = (formData.get('awardText') as string) || null;
   const youtubeUrl = (formData.get('youtubeUrl') as string) || null;
   const spotifyUrl = (formData.get('spotifyUrl') as string) || null;
   const appleMusicUrl = (formData.get('appleMusicUrl') as string) || null;
@@ -45,10 +41,6 @@ export async function updateRelease(formData: FormData) {
   const title = formData.get('title') as string;
   const year = formData.get('year') as string;
   const type = formData.get('type') as string;
-  const coverImage = (formData.get('coverImage') as string) || '/images/release-placeholder.svg';
-  const sortOrder = parseInt((formData.get('sortOrder') as string) || '0', 10);
-  const platformsJson = formData.get('platforms') as string || '[]';
-  const awardText = (formData.get('awardText') as string) || null;
   const coverImage = (formData.get('coverImage') as string) || '/images/release-placeholder.svg';
   const sortOrder = parseInt((formData.get('sortOrder') as string) || '0', 10);
   const platformsJson = formData.get('platforms') as string || '[]';
