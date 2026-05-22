@@ -115,8 +115,8 @@ export interface Release {
   id: string;
   title: string;
   year: string;
-  type?: string | null;
-  awardText?: string | null;
+  type: string | null;
+  awardText: string | null;
   coverImage: string;
   platforms: PlatformLink[];
   sortOrder: number;
