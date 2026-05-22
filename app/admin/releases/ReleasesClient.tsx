@@ -2,17 +2,8 @@
 
 import { useState } from 'react';
 import { s, inputStyle, btnStyle, dangerBtnStyle, secondaryBtnStyle } from '../adminStyles';
-import type { PlatformLink } from '@/lib/db';
+import type { PlatformLink, Release } from '@/lib/db';
 
-interface Release {
-  id: string;
-  title: string;
-  year: string;
-  awardText: string | null;
-  coverImage: string;
-  platforms: PlatformLink[];
-  sortOrder: number;
-}
 
 interface Props {
   releases: Release[];
