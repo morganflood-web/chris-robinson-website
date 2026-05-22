@@ -11,23 +11,24 @@ interface Props {
   deleteRelease: (fd: FormData) => Promise<void>;
 }
 
-const RELEASE_TYPES = ['Album', 'Special', 'Album & Special'];
+const RELEASE_TYPES = ['Comedy Special', 'Comedy Album', 'Comedy Special & Album'];
 
 export default function ReleasesClient({ releases, addRelease, updateRelease, deleteRelease }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [addFormKey, setAddFormKey] = useState(0);
 
-  async function handleAdd(fd: FormData) {
+  async function handleAdd(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setSubmitting(true);
-    await addRelease(fd);
-    setAddFormKey((k) => k + 1);
+    await addRelease(new FormData(e.currentTarget));
+    (e.currentTarget as HTMLFormElement).reset();
     setSubmitting(false);
   }
 
-  async function handleUpdate(fd: FormData) {
+  async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setSubmitting(true);
-    await updateRelease(fd);
+    await updateRelease(new FormData(e.currentTarget));
     setEditingId(null);
     setSubmitting(false);
   }
@@ -43,16 +44,13 @@ export default function ReleasesClient({ releases, addRelease, updateRelease, de
     <div>
       <h1 style={s.pageTitle}>Releases</h1>
 
+      {/* ── Add Release Form ── */}
       <section style={s.card}>
         <h2 style={s.sectionTitle}>Add New Release</h2>
-        <ReleaseForm
-          key={addFormKey}
-          onSubmit={handleAdd}
-          submitting={submitting}
-          submitLabel="+ Add Release"
-        />
+        <ReleaseForm onSubmit={handleAdd} submitting={submitting} submitLabel="+ Add Release" />
       </section>
 
+      {/* ── Releases List ── */}
       <section style={s.card}>
         <h2 style={s.sectionTitle}>Current Releases ({releases.length})</h2>
         {releases.length === 0 ? (
@@ -74,25 +72,20 @@ export default function ReleasesClient({ releases, addRelease, updateRelease, de
               ) : (
                 <div key={release.id} style={s.releaseRow}>
                   <div style={s.releaseInfo}>
-                    <strong style={{ color: '#F5F0E8' }}>
-                      <span style={{ color: '#B8A898', fontWeight: 600, marginRight: '0.5rem' }}>#{release.sortOrder}</span>
-                      {release.title}
-                    </strong>
+                    <strong style={{ color: '#F0F4EF' }}>{release.title}</strong>
                     <span style={s.releaseMeta}>{release.year} · {release.type}</span>
                     <div style={{ marginTop: '0.4rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                       {release.youtubeUrl && <PlatformBadge label="YouTube" href={release.youtubeUrl} />}
                       {release.spotifyUrl && <PlatformBadge label="Spotify" href={release.spotifyUrl} />}
                       {release.appleMusicUrl && <PlatformBadge label="Apple Music" href={release.appleMusicUrl} />}
+                      {release.appleTvUrl && <PlatformBadge label="Apple TV" href={release.appleTvUrl} />}
                       {release.amazonMusicUrl && <PlatformBadge label="Amazon" href={release.amazonMusicUrl} />}
                       {release.youtubeMusicUrl && <PlatformBadge label="YT Music" href={release.youtubeMusicUrl} />}
-                      {release.customLinks?.map((l) => (
-                        <PlatformBadge key={l.url + l.label} label={l.label} href={l.url} />
-                      ))}
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
-                    <button type="button" onClick={() => setEditingId(release.id)} style={secondaryBtnStyle}>Edit</button>
-                    <button type="button" onClick={() => handleDelete(release.id)} style={dangerBtnStyle}>Delete</button>
+                    <button onClick={() => setEditingId(release.id)} style={secondaryBtnStyle}>Edit</button>
+                    <button onClick={() => handleDelete(release.id)} style={dangerBtnStyle}>Delete</button>
                   </div>
                 </div>
               )
@@ -173,41 +166,18 @@ function ReleaseForm({
 }: {
   defaultValues?: Release;
   releaseId?: string;
-  onSubmit: (fd: FormData) => Promise<void>;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   submitting: boolean;
   submitLabel: string;
   onCancel?: () => void;
 }) {
-  const [customLinks, setCustomLinks] = useState<{ label: string; url: string }[]>(() =>
-    defaultValues?.customLinks?.length ? defaultValues.customLinks.map((l) => ({ ...l })) : []
-  );
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    fd.set('customLinks', JSON.stringify(customLinks));
-    await onSubmit(fd);
-  }
-
   return (
-    <form onSubmit={handleSubmit} style={s.formGrid}>
+    <form onSubmit={onSubmit} style={s.formGrid}>
       {releaseId && <input type="hidden" name="id" value={releaseId} />}
 
       <div>
-        <label style={s.label}>Order</label>
-        <input
-          type="number"
-          name="sortOrder"
-          min={0}
-          step={1}
-          defaultValue={defaultValues?.sortOrder ?? 0}
-          required
-          style={inputStyle}
-        />
-      </div>
-      <div>
         <label style={s.label}>Title</label>
-        <input name="title" placeholder="Reets" defaultValue={defaultValues?.title} required style={inputStyle} />
+        <input name="title" placeholder="UNRULY" defaultValue={defaultValues?.title} required style={inputStyle} />
       </div>
       <div>
         <label style={s.label}>Year</label>
@@ -215,33 +185,14 @@ function ReleaseForm({
       </div>
       <div>
         <label style={s.label}>Type</label>
-        <select name="type" defaultValue={defaultValues?.type ?? 'Album'} style={selectStyle}>
+        <select name="type" defaultValue={defaultValues?.type ?? 'Comedy Special'} style={selectStyle}>
           {RELEASE_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
       </div>
 
-      <div>
-        <label style={s.label}>Album Art Filename</label>
-        <input
-          name="albumArt"
-          placeholder="reets-album-art.jpg"
-          defaultValue={defaultValues?.albumArt ?? ''}
-          style={inputStyle}
-        />
-      </div>
-      <div>
-        <label style={s.label}>Hero Image Filename</label>
-        <input
-          name="heroImage"
-          placeholder="reets-hero.jpg"
-          defaultValue={defaultValues?.heroImage ?? ''}
-          style={inputStyle}
-        />
-      </div>
-
       <div style={{ gridColumn: '1 / -1' }}>
         <label style={s.label}>YouTube URL</label>
-        <input name="youtubeUrl" placeholder="https://youtube.com/watch?v=…" defaultValue={defaultValues?.youtubeUrl ?? ''} style={inputStyle} />
+        <input name="youtubeUrl" placeholder="https://youtu.be/…" defaultValue={defaultValues?.youtubeUrl ?? ''} style={inputStyle} />
       </div>
       <div>
         <label style={s.label}>Spotify URL</label>
@@ -252,54 +203,16 @@ function ReleaseForm({
         <input name="appleMusicUrl" placeholder="https://music.apple.com/…" defaultValue={defaultValues?.appleMusicUrl ?? ''} style={inputStyle} />
       </div>
       <div>
+        <label style={s.label}>Apple TV URL</label>
+        <input name="appleTvUrl" placeholder="https://tv.apple.com/…" defaultValue={defaultValues?.appleTvUrl ?? ''} style={inputStyle} />
+      </div>
+      <div>
         <label style={s.label}>Amazon Music URL</label>
-        <input name="amazonMusicUrl" placeholder="https://music.amazon.com/…" defaultValue={defaultValues?.amazonMusicUrl ?? ''} style={inputStyle} />
+        <input name="amazonMusicUrl" placeholder="https://music.amazon.ca/…" defaultValue={defaultValues?.amazonMusicUrl ?? ''} style={inputStyle} />
       </div>
       <div>
         <label style={s.label}>YouTube Music URL</label>
         <input name="youtubeMusicUrl" placeholder="https://music.youtube.com/…" defaultValue={defaultValues?.youtubeMusicUrl ?? ''} style={inputStyle} />
-      </div>
-
-      <div style={{ gridColumn: '1 / -1' }}>
-        <label style={s.label}>Additional Links</label>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {customLinks.map((row, i) => (
-            <div key={i} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
-              <input
-                value={row.label}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  setCustomLinks((cl) => cl.map((r, j) => (j === i ? { ...r, label: v } : r)));
-                }}
-                placeholder="Label"
-                style={{ ...inputStyle, flex: '1 1 120px' }}
-              />
-              <input
-                value={row.url}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  setCustomLinks((cl) => cl.map((r, j) => (j === i ? { ...r, url: v } : r)));
-                }}
-                placeholder="https://…"
-                style={{ ...inputStyle, flex: '2 1 200px' }}
-              />
-              <button
-                type="button"
-                onClick={() => setCustomLinks((cl) => cl.filter((_, j) => j !== i))}
-                style={dangerBtnStyle}
-              >
-                Delete
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={() => setCustomLinks((cl) => [...cl, { label: '', url: '' }])}
-            style={secondaryBtnStyle}
-          >
-            Add Link
-          </button>
-        </div>
       </div>
 
       <div style={{ ...s.formActions, gridColumn: '1 / -1' }}>
@@ -318,10 +231,10 @@ function PlatformBadge({ label, href }: { label: string; href: string }) {
   return (
     <a href={href} target="_blank" rel="noreferrer" style={{
       padding: '0.2rem 0.5rem',
-      backgroundColor: 'rgba(232,101,26,0.15)',
-      border: '1px solid rgba(232,101,26,0.3)',
+      backgroundColor: 'rgba(200,164,90,0.15)',
+      border: '1px solid rgba(200,164,90,0.3)',
       borderRadius: '3px',
-      color: '#E8651A',
+      color: '#C8A45A',
       fontSize: '0.75rem',
       textDecoration: 'none',
       fontWeight: 600,
