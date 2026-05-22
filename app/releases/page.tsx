@@ -3,6 +3,47 @@ import { getReleases } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
+
+function AlbumPlaceholder({ releaseId, title }: { releaseId: string; title: string }) {
+  if (ALBUM_ART[releaseId]) {
+    return (
+      <img
+        src={ALBUM_ART[releaseId]}
+        alt={title}
+        style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "12px" }}
+      />
+    );
+  }
+  return (
+    <div
+      style={{
+        width: "100%",
+        aspectRatio: "1 / 1",
+        backgroundColor: PLACEHOLDER_COLORS[releaseId] ?? "#2A3226",
+        borderRadius: "12px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        border: `1px solid ${C.border}`,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "var(--font-bebas), Impact, sans-serif",
+          fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+          letterSpacing: "0.1em",
+          color: C.light,
+          textAlign: "center",
+          padding: "16px",
+          whiteSpace: "pre-line",
+        }}
+      >
+        {PLACEHOLDER_LABELS[releaseId] ?? title}
+      </span>
+    </div>
+  );
+}
+
 export default async function ReleasesPage() {
   const releases = await getReleases();
 
