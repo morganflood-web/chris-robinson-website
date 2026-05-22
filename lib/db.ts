@@ -56,23 +56,25 @@ export async function setupDb() {
     `;
   }
 
-  // Migrate existing releases: convert URL columns to platforms JSONB if needed
-  const relResult = await sql`SELECT id, title, year, youtube_url, spotify_url, apple_music_url, apple_tv_url, amazon_music_url, youtube_music_url, platforms FROM releases`;
-  for (const row of relResult.rows) {
-    const existing = Array.isArray(row.platforms) ? row.platforms : [];
-    if (existing.length > 0) continue; // already migrated
-
-    const platforms: {label: string, url: string}[] = [];
-    if (row.youtube_url) platforms.push({ label: 'YouTube', url: row.youtube_url });
-    if (row.spotify_url) platforms.push({ label: 'Spotify', url: row.spotify_url });
-    if (row.apple_music_url) platforms.push({ label: 'Apple Music', url: row.apple_music_url });
-    if (row.apple_tv_url) platforms.push({ label: 'Apple TV', url: row.apple_tv_url });
-    if (row.amazon_music_url) platforms.push({ label: 'Amazon Music', url: row.amazon_music_url });
-    if (row.youtube_music_url) platforms.push({ label: 'YouTube Music', url: row.youtube_music_url });
-
-    if (platforms.length > 0) {
-      await sql`UPDATE releases SET platforms = ${JSON.stringify(platforms)}::jsonb WHERE id = ${row.id}`;
+  // Migrate existing releases: convert URL columns to platforms JSONB if needed (safe — skips if old columns gone)
+  try {
+    const relResult = await sql`SELECT id, youtube_url, spotify_url, apple_music_url, apple_tv_url, amazon_music_url, youtube_music_url, platforms FROM releases`;
+    for (const row of relResult.rows) {
+      const existing = Array.isArray(row.platforms) ? row.platforms : [];
+      if (existing.length > 0) continue;
+      const platforms: {label: string, url: string}[] = [];
+      if (row.youtube_url) platforms.push({ label: 'YouTube', url: row.youtube_url });
+      if (row.spotify_url) platforms.push({ label: 'Spotify', url: row.spotify_url });
+      if (row.apple_music_url) platforms.push({ label: 'Apple Music', url: row.apple_music_url });
+      if (row.apple_tv_url) platforms.push({ label: 'Apple TV', url: row.apple_tv_url });
+      if (row.amazon_music_url) platforms.push({ label: 'Amazon Music', url: row.amazon_music_url });
+      if (row.youtube_music_url) platforms.push({ label: 'YouTube Music', url: row.youtube_music_url });
+      if (platforms.length > 0) {
+        await sql`UPDATE releases SET platforms = ${JSON.stringify(platforms)}::jsonb WHERE id = ${row.id}`;
+      }
     }
+  } catch {
+    // Old URL columns already removed — migration already done or fresh DB
   }
 
   // Seed releases if empty
