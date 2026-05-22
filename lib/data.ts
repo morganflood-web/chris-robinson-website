@@ -21,11 +21,12 @@ export async function getShows(): Promise<Show[]> {
 
 export async function getReleases(): Promise<Release[]> {
   const result = await sql`
-    SELECT id, title, year, cover_image, platforms, sort_order
+    SELECT id, title, year, cover_image, platforms, sort_order, award_text
     FROM releases ORDER BY sort_order ASC, created_at ASC
   `;
   return result.rows.map((row) => ({
     id: row.id, title: row.title, year: row.year,
+    awardText: row.award_text ?? null,
     coverImage: row.cover_image,
     platforms: parsePlatforms(row.platforms),
     sortOrder: row.sort_order,
