@@ -17,9 +17,17 @@ export async function getShows(): Promise<Show[]> {
   }));
 }
 
+function parsePlatforms(raw: unknown): import('./db').PlatformLink[] {
+  if (!Array.isArray(raw)) return [];
+  return (raw as { label?: string; url?: string }[])
+    .filter((x) => typeof x?.label === 'string' && typeof x?.url === 'string')
+    .map((x) => ({ label: x.label!, url: x.url! }));
+}
+
+
 export async function getReleases(): Promise<Release[]> {
   const result = await sql`
-    SELECT id, title, year, type,
+    SELECT id, title, year, type, cover_image, platforms, sort_order, award_text,
            youtube_url, spotify_url, apple_music_url, apple_tv_url,
            amazon_music_url, youtube_music_url
     FROM releases
@@ -29,7 +37,11 @@ export async function getReleases(): Promise<Release[]> {
     id: row.id,
     title: row.title,
     year: row.year,
-    type: row.type,
+    type: row.type ?? null,
+    awardText: row.award_text ?? null,
+    coverImage: row.cover_image ?? '/images/release-placeholder.svg',
+    platforms: parsePlatforms(row.platforms),
+    sortOrder: row.sort_order ?? 0,
     youtubeUrl: row.youtube_url,
     spotifyUrl: row.spotify_url,
     appleMusicUrl: row.apple_music_url,
