@@ -1,8 +1,46 @@
+"use client";
+
 import { Header, Footer, C, EmailSignup } from "../_components/shared";
-import { getReleases } from "@/lib/data";
 
-export const dynamic = "force-dynamic";
-
+const RELEASES = [
+  {
+    id: "unruly",
+    title: "UNRULY",
+    year: "2025",
+    type: "Comedy Special & Album",
+    description: "",
+    platforms: [
+      { label: "Watch on YouTube", url: "https://youtu.be/qx9FlFITcvI" },
+      { label: "Spotify", url: "https://open.spotify.com/album/6Mx5Zi9KXjsm1IuyH5Iw8z" },
+      { label: "Apple Music", url: "https://music.apple.com/us/album/unruly/1840954802" },
+      { label: "YouTube Music", url: "https://music.youtube.com/playlist?list=OLAK5uy_lz1HMTSH8vDZD4KWovxv9_1Az_X7mPyDc" },
+      { label: "Amazon Music", url: "https://music.amazon.co.uk/albums/B0FRN7WD8V" },
+    ],
+  },
+  {
+    id: "panning-for-gold",
+    title: "PANNING FOR GOLD",
+    year: "2023",
+    type: "Comedy Special",
+    description: "",
+    platforms: [
+      { label: "Watch on Apple TV", url: "https://tv.apple.com/ca/show/chris-robinson-panning-for-gold/umc.cmc.2nnmodekj9k1buvxldca7l6fo" },
+    ],
+  },
+  {
+    id: "gut-bussa",
+    title: "GUT BUSSA",
+    year: "2020",
+    type: "Debut Comedy Album",
+    description: "",
+    platforms: [
+      { label: "Spotify", url: "https://open.spotify.com/album/4PRmgqAZNmsq5Bb8r7TguT" },
+      { label: "Apple Music", url: "https://music.apple.com/us/album/gut-bussa-vol-1/1510665105" },
+      { label: "Amazon Music", url: "https://music.amazon.ca/albums/B0882JR675" },
+      { label: "YouTube Music", url: "https://music.youtube.com/playlist?list=OLAK5uy_np-FyG18_LpRosOYC-STW_smSgvUaUrRk" },
+    ],
+  },
+];
 
 // Placeholder color per release (no images yet)
 const PLACEHOLDER_COLORS: Record<string, string> = {
@@ -63,9 +101,8 @@ function AlbumPlaceholder({ releaseId, title }: { releaseId: string; title: stri
   );
 }
 
-export default async function ReleasesPage() {
-  const releases = await getReleases();
-return (
+export default function ReleasesPage() {
+  return (
     <>
       <Header activePath="/releases" />
       <main style={{ backgroundColor: C.bgDeep, minHeight: "80vh" }}>
@@ -105,7 +142,7 @@ return (
 
         {/* Release cards */}
         <div style={{ maxWidth: "900px", margin: "0 auto", padding: "64px 32px" }}>
-          {releases.map((release, idx) => (
+          {RELEASES.map((release, idx) => (
             <div
               key={release.id}
               style={{
@@ -113,10 +150,10 @@ return (
                 flexDirection: "row",
                 gap: "40px",
                 alignItems: "flex-start",
-                marginBottom: idx < releases.length - 1 ? "80px" : 0,
+                marginBottom: idx < RELEASES.length - 1 ? "80px" : 0,
                 flexWrap: "wrap",
-                paddingBottom: idx < releases.length - 1 ? "80px" : 0,
-                borderBottom: idx < releases.length - 1 ? `1px solid ${C.border}` : "none",
+                paddingBottom: idx < RELEASES.length - 1 ? "80px" : 0,
+                borderBottom: idx < RELEASES.length - 1 ? `1px solid ${C.border}` : "none",
               }}
             >
               {/* Left: album art */}
