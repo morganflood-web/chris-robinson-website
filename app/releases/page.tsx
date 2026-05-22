@@ -3,12 +3,30 @@ import { getReleases } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
+const ALBUM_ART: Record<string, string> = {
+  r1: "/images/unruly-album-art.jpg",
+  r2: "/images/panning-for-gold-album-art.jpg",
+  r3: "/images/gut-bussa-album-art.jpg",
+};
+
+const PLACEHOLDER_COLORS: Record<string, string> = {
+  r1: "#2C3A2B",
+  r2: "#2A3226",
+  r3: "#263328",
+};
+
+const PLACEHOLDER_LABELS: Record<string, string> = {
+  r1: "UNRULY",
+  r2: "PANNING\nFOR GOLD",
+  r3: "GUT BUSSA",
+};
 
 function AlbumPlaceholder({ releaseId, title }: { releaseId: string; title: string }) {
-  if (ALBUM_ART[releaseId]) {
+  const art = ALBUM_ART[releaseId];
+  if (art) {
     return (
       <img
-        src={ALBUM_ART[releaseId]}
+        src={art}
         alt={title}
         style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "12px" }}
       />
@@ -51,7 +69,6 @@ export default async function ReleasesPage() {
     <>
       <Header activePath="/releases" />
       <main style={{ backgroundColor: C.bgDeep, minHeight: "80vh" }}>
-        {/* Page header */}
         <div
           style={{
             padding: "60px 32px 40px",
@@ -60,15 +77,7 @@ export default async function ReleasesPage() {
             borderBottom: `1px solid ${C.border}`,
           }}
         >
-          <p
-            style={{
-              fontSize: "0.7rem",
-              letterSpacing: "0.3em",
-              textTransform: "uppercase",
-              color: C.accent,
-              marginBottom: "12px",
-            }}
-          >
+          <p style={{ fontSize: "0.7rem", letterSpacing: "0.3em", textTransform: "uppercase", color: C.accent, marginBottom: "12px" }}>
             Specials &amp; Albums
           </p>
           <h1
@@ -85,7 +94,6 @@ export default async function ReleasesPage() {
           </h1>
         </div>
 
-        {/* Release cards */}
         <div style={{ maxWidth: "900px", margin: "0 auto", padding: "64px 32px" }}>
           {releases.map((release, idx) => (
             <div
@@ -101,23 +109,12 @@ export default async function ReleasesPage() {
                 borderBottom: idx < releases.length - 1 ? `1px solid ${C.border}` : "none",
               }}
             >
-              {/* Left: album art */}
               <div style={{ flex: "0 0 280px", maxWidth: "320px", alignSelf: "flex-start" }}>
                 <AlbumPlaceholder releaseId={release.id} title={release.title} />
               </div>
-
-              {/* Right: info + platform buttons */}
               <div style={{ flex: "1 1 260px", display: "flex", flexDirection: "column", gap: "12px", alignSelf: "flex-start" }}>
-                <p
-                  style={{
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: C.light,
-                    margin: 0,
-                  }}
-                >
-                  {release.type} · {release.year}
+                <p style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.light, margin: 0 }}>
+                  {release.year}
                 </p>
                 <h2
                   style={{
@@ -132,6 +129,9 @@ export default async function ReleasesPage() {
                 >
                   {release.title}
                 </h2>
+                {release.awardText && (
+                  <p style={{ color: C.light, fontSize: "0.85rem", margin: 0 }}>{release.awardText}</p>
+                )}
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "8px" }}>
                   {release.platforms.map((btn) => (
                     <a
@@ -150,15 +150,6 @@ export default async function ReleasesPage() {
                         letterSpacing: "0.05em",
                         width: "260px",
                         display: "block",
-                        transition: "background 0.2s, color 0.2s",
-                      }}
-                      onMouseOver={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.backgroundColor = C.accent;
-                        (e.currentTarget as HTMLAnchorElement).style.color = "#1B2A1E";
-                      }}
-                      onMouseOut={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-                        (e.currentTarget as HTMLAnchorElement).style.color = C.text;
                       }}
                     >
                       {btn.label}
@@ -166,8 +157,6 @@ export default async function ReleasesPage() {
                   ))}
                 </div>
               </div>
-
-
             </div>
           ))}
         </div>
