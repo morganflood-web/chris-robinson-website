@@ -18,7 +18,7 @@ export async function GET(request: Request) {
         ('r3', 'GUT BUSSA', '2020', '/images/release-placeholder.svg',
           '[{"label":"Spotify","url":"https://open.spotify.com/album/4PRmgqAZNmsq5Bb8r7TguT"},{"label":"Apple Music","url":"https://music.apple.com/us/album/gut-bussa-vol-1/1510665105"},{"label":"Amazon Music","url":"https://music.amazon.ca/albums/B0882JR675"},{"label":"YouTube Music","url":"https://music.youtube.com/playlist?list=OLAK5uy_np-FyG18_LpRosOYC-STW_smSgvUaUrRk"}]'::jsonb, 2)
       `;
-      const result = await sql\`SELECT id, title, platforms FROM releases\`;
+      const result = await sql`SELECT id, title, platforms FROM releases`;
       return NextResponse.json({ ok: true, seeded: result.rows.length, releases: result.rows });
     }
 
