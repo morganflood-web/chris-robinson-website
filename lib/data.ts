@@ -28,10 +28,11 @@ function parsePlatforms(raw: unknown): import('./db').PlatformLink[] {
 export async function getReleases(): Promise<Release[]> {
   // DB schema: id, title, year (int), award_text, cover_image, platforms (jsonb), sort_order
   // Old URL columns (type, youtube_url, etc.) do not exist in the live DB — use platforms JSONB only
+  // NOTE: no created_at in ORDER BY — that column does not exist in the live Neon schema
   const result = await sql`
     SELECT id, title, year, award_text, cover_image, platforms, sort_order
     FROM releases
-    ORDER BY sort_order ASC, created_at ASC
+    ORDER BY sort_order ASC
   `;
   return result.rows.map((row) => ({
     id: row.id,
